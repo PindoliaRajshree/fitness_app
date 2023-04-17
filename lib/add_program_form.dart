@@ -9,8 +9,8 @@ class AddProgramForm extends StatefulWidget {
   const AddProgramForm(
       {Key? key,
       required this.programNameController,
-      this.isEdit,
-      required this.list})
+      this.isEdit, // to check whether it is Insert or Update form
+      required this.list}) // to check for duplicate program names
       : super(key: key);
 
   @override
@@ -56,6 +56,7 @@ class _AddProgramFormState extends State<AddProgramForm> {
                       alignment: Alignment.centerRight,
                       child: InkWell(
                         onTap: () {
+                          // close popup form with result false
                           Navigator.of(context).pop(false);
                         },
                         child: Padding(
@@ -85,7 +86,9 @@ class _AddProgramFormState extends State<AddProgramForm> {
                         validator: (String? value) {
                           bool result = false;
                           widget.list.forEach((element) {
-                            if (element.name == value) result = true;
+                            // looping through program name list
+                            if (element.name == value)
+                              result = true; // to find duplicate name from list
                           });
                           if (value!.isEmpty) {
                             return 'Please Enter Program Name';
@@ -138,7 +141,8 @@ class _AddProgramFormState extends State<AddProgramForm> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            Navigator.of(context).pop(true);
+                            Navigator.of(context)
+                                .pop(true); // close popup form with result true
                           }
                         },
                         style: ElevatedButton.styleFrom(

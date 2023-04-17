@@ -15,15 +15,19 @@ class ProgramDashboard extends StatefulWidget {
 
 class _ProgramDashboardState extends State<ProgramDashboard> {
   var heightsize, widthsize;
-  List<ProgramModel> _programlist = [];
-  List<ExerciseModel> _exerciselist = [];
-  List<String> exerciseNameList = [];
-  List<ExerciseModel> _exerciseProgramList = [];
+  List<ProgramModel> _programlist = []; // display list of programs
+  List<ExerciseModel> _exerciselist =
+      []; // for maintaining records of exercise list
+  List<String> exerciseNameList = []; // display exercisenames in dropdown menu
+  List<ExerciseModel> _exerciseProgramList =
+      []; // display program specific exercise list
   TextEditingController programNameController = new TextEditingController();
   TextEditingController exerciseNameController = new TextEditingController();
   TextEditingController imageUrlController = new TextEditingController();
-  List<bool> isExpandlist = [];
-  String? selectedExerciseName;
+  List<bool> isExpandlist =
+      []; // for show / hide exercise list in each program item
+  String?
+      selectedExerciseName; // for showing selected exercise name from dropdown name
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +53,7 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () async {
+                        // result based on program name added successful or not
                         bool isProgramAdd = await showDialog(
                             context: context,
                             barrierDismissible: false,
@@ -63,8 +68,10 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                           setState(() {
                             _programlist
                                 .add(ProgramModel(programNameController.text));
-                            isExpandlist.add(false);
-                            print(_programlist.length);
+                            isExpandlist.add(
+                                false); // by default program list item will be in hide mode
+                            print(_programlist
+                                .length); // to check program name is added into list or not
                           });
                         }
                         setState(() {
@@ -96,6 +103,7 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () async {
+                        // result based on exercise added successful or not
                         bool isProgramAdd = await showDialog(
                             context: context,
                             barrierDismissible: false,
@@ -113,9 +121,11 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                                 File(imageUrlController.text)));
                             exerciseNameList.add(exerciseNameController.text);
                             if (exerciseNameList.isEmpty) {
-                              selectedExerciseName = '';
+                              selectedExerciseName =
+                                  ''; // if name list empty, then display hint in dropdown menu
                             } else {
-                              if (exerciseNameList.length == 1)
+                              if (exerciseNameList.length ==
+                                  1) // if name list contains one item, then displau first item as default value in dropdown menu
                                 selectedExerciseName = exerciseNameList[0];
                             }
                             print(
@@ -209,6 +219,7 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                                     InkWell(
                                       onTap: () async {
                                         setState(() {
+                                          // display current program name in edit program name popup form
                                           programNameController.text =
                                               _programlist[index]
                                                   .name
@@ -229,20 +240,24 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                                           setState(() {
                                             if (_exerciseProgramList
                                                 .isNotEmpty) {
+                                              //checking exercise list is not empty
                                               _exerciseProgramList
                                                   .forEach((element) {
+                                                // looping through each item of exercise list
                                                 if (element.program_name ==
                                                     _programlist[index].name) {
+                                                  //comparing exercise list's program name with current program name
                                                   element.program_name =
                                                       programNameController
-                                                          .text;
+                                                          .text; // updating exercise list's program name
                                                 }
                                               });
                                             }
+                                            // remove program from list and adding new program name
                                             _programlist.removeAt(index);
                                             _programlist.add(ProgramModel(
                                                 programNameController.text));
-                                            print(_programlist);
+                                            print(_programlist.length);
                                           });
                                         }
                                         setState(() {
@@ -261,6 +276,7 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
+                                          // for getting indexes of exercises under current program
                                           List<int> _exerciseProgramIndex = [];
                                           if (_exerciseProgramList.isNotEmpty) {
                                             _exerciseProgramList
@@ -272,13 +288,15 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                                                         .indexOf(element));
                                               }
                                             });
+                                            // removing all exercises under current program
                                             _exerciseProgramIndex
                                                 .forEach((element) {
                                               _exerciseProgramList
                                                   .removeAt(element);
                                             });
                                           }
-                                          _programlist.removeAt(index);
+                                          _programlist.removeAt(
+                                              index); //removing program using current index
                                         });
                                       },
                                       child: Icon(
@@ -293,6 +311,7 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
+                                          // show / hide exercise list and dropdown menu
                                           isExpandlist[index] =
                                               !isExpandlist[index];
                                         });
@@ -344,6 +363,7 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                                       ElevatedButton(
                                         onPressed: () {
                                           setState(() {
+                                            // get index of currently selected exercise name from dropdown menu
                                             int getSelectedExerciseIndex = -1;
                                             if (_exerciselist.isNotEmpty) {
                                               _exerciselist.forEach((element) {
@@ -394,6 +414,7 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                                     height: 20,
                                   )
                                 : Container(),
+                            // exercise list under particular program is shown only if exercise list not empty
                             if (isExpandlist[index] &&
                                 _exerciseProgramList.isNotEmpty) ...[
                               ListView.builder(
@@ -401,6 +422,7 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, _index) {
+                                  // checking program name with exercise program name and display that exercise list item under that program name
                                   return _programlist[index].name ==
                                           _exerciseProgramList[_index]
                                               .program_name
@@ -440,8 +462,8 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                                                 InkWell(
                                                   onTap: () {
                                                     setState(() {
-                                                      _exerciseProgramList
-                                                          .removeAt(_index);
+                                                      _exerciseProgramList.removeAt(
+                                                          _index); // removing exercise list item
                                                     });
                                                   },
                                                   child: Icon(
