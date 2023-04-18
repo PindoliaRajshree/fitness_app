@@ -19,5 +19,5 @@ Important Note: If running on Web, one thing to note that image.file and file.pa
 ## Video of Code Walkthrough
 https://www.loom.com/share/6480f66d14fc434b9e41c2bb9d697b2c
 
-## Screen Recording
-https://drive.google.com/file/d/1HfcLWg5Zr18VdhGzsWgP00NzG19icJja/view?usp=sharing
+## UI Video
+https://www.loom.com/share/72fb74213a14484b8b58716560e54626
