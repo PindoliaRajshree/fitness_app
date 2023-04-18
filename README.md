@@ -1,16 +1,21 @@
 # fitness_app
 
-A new Flutter project.
+Fitness App
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is about fitness program and its exercises. Here We can have programs and exercises for programs. We can insert, update and delete programs, and we can insert and delete exercises.
 
-A few resources to get you started if this is your first Flutter project:
+## Third-party library
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+file_picker: I have used this to upload exercises images in fitness app.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## How to Run App
+Flutter Version - 3.7.9
+Dart SDK - 2.19.6
+
+Important Note: If running on Web, one thing to note that image.file and file.path is not supported in flutter web. So firstly build apk and run it into real devices.
+
+## Video of Code Walkthrough
+https://www.loom.com/share/6480f66d14fc434b9e41c2bb9d697b2c
+https://drive.google.com/file/d/1HfcLWg5Zr18VdhGzsWgP00NzG19icJja/view?usp=sharing

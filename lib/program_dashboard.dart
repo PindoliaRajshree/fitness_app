@@ -374,14 +374,25 @@ class _ProgramDashboardState extends State<ProgramDashboard> {
                                                           .indexOf(element);
                                                 }
                                               });
+
+                                              _exerciseProgramList.add(
+                                                  ExerciseModel(
+                                                      selectedExerciseName,
+                                                      _exerciselist[
+                                                              getSelectedExerciseIndex]
+                                                          .image_url,
+                                                      _programlist[index]
+                                                          .name));
+                                              print(
+                                                  _exerciseProgramList.length);
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text('Add Exercises'),
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                              ));
                                             }
-                                            _exerciseProgramList.add(ExerciseModel(
-                                                selectedExerciseName,
-                                                _exerciselist[
-                                                        getSelectedExerciseIndex]
-                                                    .image_url,
-                                                _programlist[index].name));
-                                            print(_exerciseProgramList.length);
                                           });
                                         },
                                         style: ElevatedButton.styleFrom(
